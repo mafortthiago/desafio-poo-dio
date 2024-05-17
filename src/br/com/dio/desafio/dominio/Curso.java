@@ -3,6 +3,7 @@ package br.com.dio.desafio.dominio;
 public class Curso extends Conteudo{
 
     private int cargaHoraria;
+    private double avaliacao = 0.0;
 
     @Override
     public double calcularXp() {
@@ -12,6 +13,26 @@ public class Curso extends Conteudo{
     public Curso() {
     }
 
+    public void setAvaliacao(double avaliacao){
+        try{
+            this.validarvaliacao(avaliacao);
+            this.avaliacao = avaliacao;
+        } catch (AvaliacaoException e){
+            System.out.println(e.getMessage());
+        }
+
+
+    }
+
+    public double getAvaliacao(){
+        return this.avaliacao;
+    }
+
+    public void validarvaliacao(double avaliacao){
+        if (avaliacao < 0 || avaliacao > 10.0){
+            throw new AvaliacaoException("A avaliação deve estar entre 0 e 10");
+        }
+    }
 
     public int getCargaHoraria() {
         return cargaHoraria;
@@ -27,6 +48,7 @@ public class Curso extends Conteudo{
                 "titulo='" + getTitulo() + '\'' +
                 ", descricao='" + getDescricao() + '\'' +
                 ", cargaHoraria=" + cargaHoraria +
+                ", avaliacao=" + this.getAvaliacao() +
                 '}';
     }
 }
